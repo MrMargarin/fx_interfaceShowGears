@@ -7,6 +7,13 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Vector;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableColumn;
+import javafx.util.Callback;
 import mai_n.MySQLConnector;
 
 
@@ -26,6 +33,7 @@ public class ProdOrderTable extends DefaultTableModel{
     private String comment;
     private int orderRowCount;
     private int orderNumber;
+    private ObservableList<Object> data;
 
     public ProdOrderTable(MySQLConnector con)
     {
@@ -77,7 +85,7 @@ public class ProdOrderTable extends DefaultTableModel{
 
     }
 
-    public void fillTable(int orderCode) throws SQLException {   //table for PM, like SM's STUS  _PM
+    public void fillTable(int orderCode) throws SQLException {   //table for PM, like SM's STUS_ob  _PM
 
         String sql = "SELECT stus_table.id, stus_table.prodName, stus_table.catName, orderlist_table.quantity_req " +
                 "FROM orderlist_table " +
@@ -141,5 +149,49 @@ public class ProdOrderTable extends DefaultTableModel{
 
     public void setComment(String comment)
     {this.comment = comment;}
-    
+
+    public void buildData(int orderCode){
+
+        setData(FXCollections.observableArrayList());
+        try{
+            String SQL = "SELECT stus_table.id, stus_table.prodName, stus_table.catName, orderlist_table.quantity_req " +
+                    "FROM orderlist_table " +
+                    "INNER JOIN stus_table ON stus_table.id = orderlist_table.stus_id where orderlist_table.order_id like '"+orderCode+"'";
+            ResultSet rs = con.getResultSet(SQL);
+
+            for(int i=0 ; i<rs.getMetaData().getColumnCount(); i++){
+                final int j = i;
+                TableColumn col = new TableColumn(rs.getMetaData().getColumnName(i+1));
+                col.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                    public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
+                        return new SimpleStringProperty(param.getValue().get(j).toString());
+                    }
+                });
+            }
+
+            while(rs.next()){
+                //Iterate Row
+                ObservableList<String> row = FXCollections.observableArrayList();
+                for(int i=1 ; i<=rs.getMetaData().getColumnCount(); i++){
+                    //Iterate Column
+                    row.add(rs.getString(i));
+                }
+                System.out.println("Row [1] added "+row );
+                getData().add(row);
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+            System.out.println("Error on Building Data");
+        }
+    }
+
+
+    public ObservableList<Object> getData() {
+        return data;
+    }
+
+    public void setData(ObservableList<Object> data) {
+        this.data = data;
+    }
 }

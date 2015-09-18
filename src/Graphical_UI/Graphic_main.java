@@ -34,7 +34,7 @@ public class Graphic_main extends JFrame{
     private KeyAdapter keyLforConn, keyLforShow;
 
     private JSplitPane stus_stipp_pane, global_split_pane;
-    private JPanel inputPane, outputPane, sidePane; // panel for make orders;
+    private JPanel inputPane, sidePane; // panel for make orders;
     private JScrollPane scPfSTUSTable, scPfSTIPPTable, scPfPrOrdTable, scPfOrdLstTable; //   "scPf" - scroll panel for
 
     private Logic_main mainThread;
@@ -338,7 +338,7 @@ public class Graphic_main extends JFrame{
                 }
             });
 
-            //==========================Table-STIPP======================================
+            //==========================Table-STIPP_ob======================================
             ListSelectionModel selModel = STUSTable.getSelectionModel();
             selModel.addListSelectionListener(new ListSelectionListener() {
                 @Override
@@ -405,7 +405,7 @@ public class Graphic_main extends JFrame{
         sidePane.add(scPfOrdLstTable, BorderLayout.CENTER);
         sidePane.revalidate();
 
-        //==========================Table-STIPP======================================
+        //==========================Table-STIPP_ob======================================
         ListSelectionModel selModel = OrderListTable.getSelectionModel();
         selModel.addListSelectionListener(new ListSelectionListener() {
             @Override

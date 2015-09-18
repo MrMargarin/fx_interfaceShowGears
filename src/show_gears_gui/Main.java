@@ -5,18 +5,25 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import mai_n.Logic_main;
+
+import java.io.IOException;
 
 public class Main extends Application {
 
-    private Logic_main mainThread;
+
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage stage){
+
+        try {
         Parent root = FXMLLoader.load(getClass().getResource("views/mainWin.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
-        primaryStage.show();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("sometxt");
+        stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
