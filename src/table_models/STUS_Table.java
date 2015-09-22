@@ -7,6 +7,13 @@ import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableColumn;
+import javafx.util.Callback;
 import mai_n.MySQLConnector;
 
 /**
@@ -25,7 +32,8 @@ public class STUS_Table {
     private ArrayList<String> vendorNames;
     private int numOfItFound;
     private Vector<String> colNames;
-    
+    private ObservableList<String> data;
+
     public STUS_Table(MySQLConnector con)
     {
         colNames = new Vector<String>();
@@ -61,6 +69,47 @@ public class STUS_Table {
         //    fillColToDel(values);}
     }
 
+    public void buildData(String SQL){
+
+        setData(FXCollections.observableArrayList());
+        try{
+
+            ResultSet rs = con.getResultSet(SQL);
+
+            for(int i=0 ; i<rs.getMetaData().getColumnCount(); i++){
+                final int j = i;
+                TableColumn col = new TableColumn(rs.getMetaData().getColumnName(i+1));
+                col.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                    public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
+                        return new SimpleStringProperty(param.getValue().get(j).toString());
+                    }
+                });
+            }
+
+            while(rs.next()){
+                //Iterate Row
+                ObservableList<String> row = FXCollections.observableArrayList();
+                for(int i=1 ; i<=rs.getMetaData().getColumnCount(); i++){
+                    //Iterate Column
+                    row.add(rs.getString(i));
+                }
+                System.out.println("Row [1] added "+row );
+                getData().add(String.valueOf(row));
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+            System.out.println("Error on Building Data");
+        }
+    }
+
+    public ObservableList<String> getData() {
+        return data;
+    }
+
+    private void setData(ObservableList<String> data) {
+        this.data = data;
+    }
 
     public String getElem(int row, int col)
     {

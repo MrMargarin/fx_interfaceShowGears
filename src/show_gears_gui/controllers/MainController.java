@@ -1,36 +1,43 @@
 package show_gears_gui.controllers;
 
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.TableColumn;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import mai_n.Logic_main;
 import mai_n.MyException;
-import show_gears_gui.pojo.*;
 
-
-
-import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
+import show_gears_gui.Main;
+
+
+
+
 /**
  * Created by Rimskii on 12.09.2015.
  */
-public class MainController{
+public class MainController extends AnchorPane{
 
 
+    private show_gears_gui.Main2 application;
     private Logic_main mainThread;
 
 
 
+    @FXML // ResourceBundle that was given to the FXMLLoader
+    private ResourceBundle resources;
+
     @FXML
-    public GridPane botGridPane;//======private JPanel botGridPane; //панель с кнопками и поиском
+    public GridPane botGridPane;//======private JPanel botGridPane; //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     @FXML
     public AnchorPane stusPane;//======JTable STUSTable
     @FXML
@@ -47,6 +54,8 @@ public class MainController{
     //public ComboBox Kategorii;//=========private JComboBox Kategorii;
 
     //public ScrollPane scPfSTUSTable, scPfSTIPPTable, scPfPrOrdTable, scPfOrdLstTable; //   "scPf" - scroll panel for
+
+    @FXML private TableView stus_TabV, ordProdTabV, stippTabV;
 
 
     @FXML private TextField loginField;
@@ -90,22 +99,95 @@ public class MainController{
         orderListTabV.setVisible(true);
     }
     @FXML
-    public void searchAction(ActionEvent actionEvent) {}
+    public void searchAction(ActionEvent actionEvent) {
+        try {
+            mainThread.mkSTUSsearch(searchField.getText(), Kategorii.getValue());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ArrayList colList = new ArrayList();
+        colList.add("РќРѕРјРµСЂ");colList.add("РќР°РёРјРµРЅРѕРІР°РЅРёРµ");colList.add("РљР°С‚РµРіРѕСЂРёСЏ");
+
+
+
+
+
+       // stus_TabV.setItems(mainThread.getMainTableMod().getData());
+
+        stus_TabV.getItems().addAll(mainThread.getMainTableMod().getData());
+        //stus_TabV.itemsProperty().bind((ObservableValue) mainThread.getMainTableMod().getData());
+        stus_TabV.setVisible(true);
+        stusPane.getChildren().add(stus_TabV);
+
+    }
     @FXML
     public void mkOrdAction(ActionEvent actionEvent) {}
     @FXML
     public void disconAction(ActionEvent actionEvent) {
+        application.logOut();
+
+    }
+    //public TableView STUSTable, STIPPTable, ProdOrdTable, OrderListTable; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+
+    public void setApp(show_gears_gui.Main2 application, Logic_main mainThread){
+        this.application = application;
+        this.mainThread = mainThread;
+        if(mainThread.getUser().getType()==1)
+            setSaleInterface();
+        else{
+            setPrchInterface();
+        }
+    }
+
+    private void setSaleInterface()
+    {
+        stus_TabV = new TableView();
+
         try {
-            mainThread.disconnect();
+            mainThread.build_STUSnSTIPP();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        autPane.setVisible(true);
+        Kategorii.setItems(mainThread.getCats().getValuesOL());
+        /*stus_TabV.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); // just in case you didnt already set the selection model to multiple selection.
+        stus_TabV.getSelectionModel().getSelectedIndices().addListener(new ListChangeListener<Integer>() {
+            @Override
+            public void onChanged(Change<? extends Integer> change) {
+                if (change.getList().size() == 1) {
+
+                    try {
+                        mainThread.mkSTIPP(change.getList().get(0).toString());
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+
+        });*/
+
+        searchField.setVisible(true);
+        Kategorii.setVisible(true);
+        disconnBtn.setVisible(true);
+        mkOrdBtn.setVisible(true);
+        searchBtn.setVisible(true);
+        stippPane.setVisible(true);
+        stusPane.setVisible(true);
+
+
+
 
     }
-    //public TableView STUSTable, STIPPTable, ProdOrdTable, OrderListTable; //Таблицы
 
+    private void setPrchInterface()
+    {
+
+    }
+
+    @FXML // This method is called by the FXMLLoader when initialization is complete
+    void initialize() {
+    }
 
 
 

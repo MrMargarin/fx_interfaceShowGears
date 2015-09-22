@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.collections.*?>
 <?import javafx.collections.FXCollections?>
+<?import javafx.geometry.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<?import java.lang.*?>
+
 <BorderPane minWidth="610.0" padding="$x1" prefHeight="574.0" prefWidth="655.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="show_gears_gui.controllers.MainController">
   <bottom>
     <GridPane fx:id="botGridPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="700.0" BorderPane.alignment="CENTER">
       <children>
         <TextField fx:id="searchField" disable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1.0" prefHeight="30.0" prefWidth="200.0" promptText="Поиск" visible="false" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-        <ComboBox fx:id="cat_2" disable="true" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="200.0" visible="false" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+        <ComboBox fx:id="cat_2" disable="false" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="200.0" visible="false" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
           <items>
             <FXCollections fx:factory="observableArrayList">
               <String fx:value="Item 1" />
@@ -21,7 +24,7 @@
           </items>
         </ComboBox>
         <Button fx:id="searchBtn" disable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#searchAction" prefHeight="30.0" prefWidth="80.0" text="Поиск" visible="false" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-        <ComboBox fx:id="Kategorii" disable="true" maxHeight="-Infinity" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="200.0" visible="false" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+        <ComboBox fx:id="Kategorii" disable="false" maxHeight="-Infinity" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="200.0" visible="false" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
           <items>
             <FXCollections fx:factory="observableArrayList">
               <String fx:value="Item 1" />
@@ -39,9 +42,9 @@
             </FXCollections>
           </items>
         </ComboBox>
-        <Button fx:id="disconnBtn" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#disconAction" opacity="1.0" prefHeight="30.0" prefWidth="80.0" text="Выйти" visible="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-        <Button id="disconnBtn" fx:id="showOrdersList" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#showOrderLstAction" prefHeight="30.0" prefWidth="80.0" text="Заказы" visible="false" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <Button id="disconnBtn" fx:id="mkOrdBtn" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mkOrdAction" opacity="1.0" prefHeight="30.0" prefWidth="80.0" text="Заказ" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Button fx:id="disconnBtn" disable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#disconAction" opacity="1.0" prefHeight="30.0" prefWidth="80.0" text="Выйти" visible="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+        <Button id="disconnBtn" fx:id="showOrdersList" disable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#showOrderLstAction" prefHeight="30.0" prefWidth="80.0" text="Заказы" visible="false" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Button id="disconnBtn" fx:id="mkOrdBtn" disable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#mkOrdAction" opacity="1.0" prefHeight="30.0" prefWidth="80.0" text="Заказ" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -56,17 +59,11 @@
     </GridPane>
   </bottom>
   <center>
-    <SplitPane fx:id="global_split_pane" dividerPositions="0.8028169014084507" focusTraversable="true" orientation="VERTICAL" prefHeight="160.0" prefWidth="200.0">
+    <SplitPane fx:id="global_split_pane" dividerPositions="0.6592039800995025" focusTraversable="true" orientation="VERTICAL" prefHeight="160.0" prefWidth="200.0">
       <items>
-        <AnchorPane id="stus_n_stippSplitTable" fx:id="stusPane" disable="true" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" visible="false">
+        <AnchorPane id="stus_n_stippSplitTable" fx:id="stusPane" disable="false" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" visible="true">
           <children>
-            <TableView fx:id="stus_TabV" layoutX="371.0" layoutY="160.0" prefHeight="200.0" prefWidth="200.0">
-              <columns>
-                <TableColumn prefWidth="75.0" text="Column X" />
-                <TableColumn prefWidth="75.0" text="Column X" />
-              </columns>
-            </TableView>
-            <TableView fx:id="ordProdTabV" layoutX="371.0" layoutY="160.0" prefHeight="200.0" prefWidth="200.0">
+            <TableView fx:id="ordProdTabV" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columns>
                 <TableColumn prefWidth="75.0" text="Column X" />
                 <TableColumn prefWidth="75.0" text="Column X" />
@@ -74,9 +71,9 @@
             </TableView>
           </children>
         </AnchorPane>
-        <AnchorPane fx:id="stippPane" disable="true" minHeight="0.0" minWidth="0.0" onMouseClicked="#mousClickActionOrdLst" prefHeight="100.0" prefWidth="160.0" visible="false">
+        <AnchorPane fx:id="stippPane" disable="false" minHeight="0.0" minWidth="0.0" onMouseClicked="#mousClickActionOrdLst" prefHeight="100.0" prefWidth="160.0" visible="true">
           <children>
-            <TableView fx:id="stippTabV" layoutX="371.0" layoutY="160.0" prefHeight="200.0" prefWidth="200.0">
+            <TableView fx:id="stippTabV" prefHeight="200.0" prefWidth="200.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columns>
                 <TableColumn prefWidth="75.0" text="Column X" />
                 <TableColumn prefWidth="75.0" text="Column X" />
@@ -88,13 +85,11 @@
     </SplitPane>
   </center>
   <left>
-    <Pane fx:id="leftPane" prefHeight="-1.0" prefWidth="-1.0">
+    <Pane fx:id="leftPane" disable="false" prefHeight="-1.0" prefWidth="-1.0" visible="false">
       <children>
         <AnchorPane fx:id="sidePane" disable="true" layoutX="-157.0" layoutY="-9.0" minHeight="0.0" minWidth="0.0" prefHeight="646.0" prefWidth="314.0" visible="false">
           <children>
-            <TableView fx:id="orderListTabV" disable="true" layoutX="157.0" layoutY="323.0" onMouseClicked="#mousClickActionOrdLst" prefHeight="200.0" prefWidth="200.0" visible="false"/>
-
-
+            <TableView fx:id="orderListTabV" disable="true" layoutX="157.0" layoutY="323.0" onMouseClicked="#mousClickActionOrdLst" prefHeight="200.0" prefWidth="200.0" visible="false" />
             <TableView fx:id="prodOrdTabV" disable="true" layoutX="157.0" layoutY="323.0" prefHeight="200.0" prefWidth="200.0" visible="false">
               <columns>
                 <TableColumn prefWidth="75.0" text="Column X" />
@@ -112,18 +107,4 @@
   <right>
     <Pane fx:id="rightPane" prefHeight="-1.0" prefWidth="-1.0" BorderPane.margin="$x1" />
   </right>
-  <top>
-    <AnchorPane id="AnchorPane" fx:id="autPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="189.0" prefWidth="315.0">
-      <children>
-        <TextField fx:id="loginField" layoutX="58.0" layoutY="53.0" prefHeight="30.0" prefWidth="200.0" promptText="root" />
-        <PasswordField fx:id="passField" layoutX="58.0" layoutY="107.0" prefHeight="30.0" prefWidth="200.0" promptText="" />
-        <Button fx:id="connBtn" layoutX="108.0" layoutY="145.0" mnemonicParsing="false" onAction="#connectAction" prefHeight="30.0" prefWidth="100.0" text="Войти" />
-        <Label id="welcomLabel" alignment="CENTER" layoutX="108.0" layoutY="14.0" prefHeight="30.0" prefWidth="100.0" text="Privet" textAlignment="CENTER">
-          <font>
-            <Font size="16.0" />
-          </font>
-        </Label>
-      </children>
-    </AnchorPane>
-  </top>
 </BorderPane>

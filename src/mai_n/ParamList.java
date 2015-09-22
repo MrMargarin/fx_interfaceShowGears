@@ -1,5 +1,8 @@
 package mai_n;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -30,5 +33,10 @@ public class ParamList {
     
     public Vector getValues()
     {return params;}
+
+    public ObservableList getValuesOL()
+    {
+        return FXCollections.observableList(params);
+    }
     
 }

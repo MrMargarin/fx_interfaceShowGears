@@ -31,8 +31,16 @@ public class Logic_main {
 
     private MySQLConnector connector;
 
+    public Logic_main()
+    {}
 
     public Logic_main(String usm, String pss) throws SQLException, ClassNotFoundException, MyException {
+        setConnector(new MySQLConnector(urlToDB, usm, pss));
+        setUserName(usm); //init user current name
+        setUser(new User(usm, this.connector));
+    }
+
+    public void connect_to_data_base(String usm, String pss) throws SQLException, ClassNotFoundException, MyException {
         setConnector(new MySQLConnector(urlToDB, usm, pss));
         setUserName(usm); //init user current name
         setUser(new User(usm, this.connector));
@@ -110,10 +118,12 @@ public class Logic_main {
     public void mkSTUSsearch(String search, Object categ) throws SQLException {
         srch = "select * from stus_table where "+namField+" like \'%" + search + "%\' and CatName like \'"+categ+"\'";
         mainTableMod.fillTable(srch);
+        mainTableMod.buildData(srch);
     }
 
     public void mkSTIPP(String productCode) throws SQLException {
         subTableMod.fillTable(productCode, "stipp_table");
+        subTableMod.buildData(productCode, "stipp_table");
 
     }
 

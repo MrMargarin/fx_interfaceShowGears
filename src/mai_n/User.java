@@ -1,10 +1,7 @@
 package mai_n;
 
-import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.Vector;
 
 /**
  * Created by Rimskii on 16.09.2015.

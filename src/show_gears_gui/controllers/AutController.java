@@ -10,62 +10,48 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import mai_n.Logic_main;
 import mai_n.MyException;
+import show_gears_gui.Main;
+import show_gears_gui.Main2;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 /**
  * Created by Rimskii on 17.09.2015.
  */
-public class AutController {
+public class AutController extends AnchorPane{
     public TextField loginField;
     public PasswordField passField;
     public Button connBtn;
     public Label welcomLabel;
 
 
+    @FXML // ResourceBundle that was given to the FXMLLoader
+    private ResourceBundle resources;
 
     private Logic_main mainThread;
-
-
-
+    private Main2 application;
 
 
     public void connectAction(ActionEvent event){
-        try {
-            mainThread = new Logic_main(loginField.getText(), passField.getText());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (MyException e) {
-            e.printStackTrace();
-        }
-        //((Node) (event.getSource())).getScene().getWindow().hide();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/mainWin.fxml"));
 
-    try {
-        Parent parent = loader.load();
-        //mainController = loader.<MainController>getController();
-        //mainController = new MainController(mainThread);
+            //mainThread.connect_to_data_base(loginField.getText(), passField.getText());
+            application.logIn(loginField.getText(), passField.getText());
 
-
-
-
-
-        //Parent parent = FXMLLoader.load(getClass().getResource());
-        Stage stage = new Stage();
-        Scene scene = new Scene(parent);
-        stage.setScene(scene);
-        stage.setTitle("ShowGears");
-        stage.show();
-
-    } catch (IOException e) {
-        e.printStackTrace();
     }
 
+    public void setApp(show_gears_gui.Main2 application, Logic_main mainThread) {
+        this.application = application;
+        this.mainThread = mainThread;
+    }
+
+
+    @FXML // This method is called by the FXMLLoader when initialization is complete
+    void initialize() {
     }
 }
